@@ -10,6 +10,12 @@ rev = "v4.28.0"
 [[lean_lib]]
 name = "KnuthClaudeLean"
 
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "Solution"
+
 [[lean_exe]]
 name = "knuthclaudelean"
 root = "Main"

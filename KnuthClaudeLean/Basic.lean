@@ -29,12 +29,13 @@ The step function for cycle c bumps the coordinate specified by this permutation
 
 ## Main results
 
-- `claudeDir_perm`: the direction function is a permutation at each vertex
+- `cube_hamiltonian_arc_decomposition`: for odd m > 1, the arcs of the cube digraph can be
+  decomposed into three directed Hamiltonian cycles
 - `claudeStep_isDirectedHamiltonianCycle`: each cycle is a directed Hamiltonian cycle (odd m > 1)
 - `claude_arc_decomposition`: the three cycles partition all arcs
-- `no_decomposition_two`: no such decomposition exists for m = 2
-- Various counting results for m = 3
-- The generalizability theorem
+
+The `Challenge.lean` / `Solution.lean` / `comparator.json` files allow independent verification
+of these results using [Comparator](https://github.com/leanprover/comparator).
 -/
 
 open Finset
@@ -117,6 +118,14 @@ theorem bumpAt_injective {m : ℕ} [NeZero m] (b : Fin 3) :
     Function.Injective (bumpAt b : Vertex m → Vertex m) := by
   intro ⟨i₁, j₁, k₁⟩ ⟨i₂, j₂, k₂⟩ h
   fin_cases b <;> simp_all [bumpAt]
+
+/-- For a fixed vertex, bumping different coordinates gives different results (when m > 1). -/
+theorem bumpAt_left_injective {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m) :
+    Function.Injective (fun b : Fin 3 => bumpAt b v) := by
+  have h10 := zmod_one_ne_zero hm
+  obtain ⟨i, j, k⟩ := v
+  intro b₁ b₂ h
+  fin_cases b₁ <;> fin_cases b₂ <;> simp_all [bumpAt]
 
 /-- No vertex is a fixed point of `bumpAt`: bumping any coordinate by 1 gives a different
 vertex when m > 1. -/
@@ -1669,4 +1678,22 @@ theorem claudeStep_isDirectedHamiltonianCycle
 theorem vertex_card (m : ℕ) [NeZero m] : Fintype.card (Vertex m) = m ^ 3 := by
   simp [Vertex, Fintype.card_prod, ZMod.card]
   ring
+
+/-- **Headline theorem.** For odd m > 1, the arcs of the cube digraph on (ZMod m)³ can be
+decomposed into three directed Hamiltonian cycles. -/
+theorem cube_hamiltonian_arc_decomposition {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m) :
+    ∃ σ : Fin 3 → Equiv.Perm (Vertex m),
+      (∀ c, IsDirectedHamiltonianCycle (cubeDigraph m) (σ c)) ∧
+      (∀ v : Vertex m, ∀ b : Fin 3, ∃! c : Fin 3, σ c v = bumpAt b v) := by
+  refine ⟨fun c => claudeStepPerm hm hm' c,
+    fun c => claudeStep_isDirectedHamiltonianCycle hm hm' c, fun v b => ?_⟩
+  have step_eq : ∀ c, claudeStepPerm hm hm' c v = bumpAt (claudeDir v c) v :=
+    fun c => by simp [claudeStepPerm, Equiv.ofBijective_apply, claudeStep]
+  have hinj := bumpAt_left_injective hm' v
+  have key : ∀ c, (claudeStepPerm hm hm' c v = bumpAt b v) ↔ (claudeDir v c = b) := by
+    intro c
+    constructor
+    · intro h; exact hinj (by simp only [step_eq] at h; exact h)
+    · intro h; rw [step_eq, h]
+  simpa only [key] using claude_arc_decomposition v b
 
