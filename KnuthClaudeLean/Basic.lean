@@ -210,25 +210,25 @@ Knuth gives explicit descriptions of the three cycles' behavior, which we record
 -- Cycle 0 rules
 
 /-- Cycle 0 bumps i when s = 0 and j = −1. -/
-theorem claudeDir_cycle0_s0_j {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeDir_cycle0_s0_j {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (hs : fiber v = 0) (hj : v.2.1 = -1) :
     claudeDir v 0 = 0 := by
   simp [claudeDir, hs, hj]
 
 /-- Cycle 0 bumps k when s = 0 and j ≠ −1. -/
-theorem claudeDir_cycle0_s0_nj {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeDir_cycle0_s0_nj {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (hs : fiber v = 0) (hj : v.2.1 ≠ -1) :
     claudeDir v 0 = 2 := by
   simp [claudeDir, hs, hj]
 
 /-- Cycle 0 bumps j when 0 < s < m−1 and i ≠ −1. -/
-theorem claudeDir_cycle0_mid_ni {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeDir_cycle0_mid_ni {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (hs0 : fiber v ≠ 0) (hs1 : fiber v ≠ -1) (hi : v.1 ≠ -1) :
     claudeDir v 0 = 1 := by
   simp [claudeDir, hs0, hs1, hi]
 
 /-- Cycle 0 bumps k when 0 < s < m−1 and i = −1. -/
-theorem claudeDir_cycle0_mid_i {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeDir_cycle0_mid_i {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (hs0 : fiber v ≠ 0) (hs1 : fiber v ≠ -1) (hi : v.1 = -1) :
     claudeDir v 0 = 2 := by
   simp [claudeDir, hs0, hs1, hi]
@@ -260,7 +260,7 @@ theorem claudeDir_cycle1_s0 {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
   split_ifs <;> simp_all
 
 /-- Cycle 1 bumps i when 0 < s < m−1. -/
-theorem claudeDir_cycle1_mid {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeDir_cycle1_mid {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (hs0 : fiber v ≠ 0) (hs1 : fiber v ≠ -1) :
     claudeDir v 1 = 0 := by
   simp [claudeDir, hs0, hs1]
@@ -284,25 +284,25 @@ theorem claudeDir_cycle1_s1_ni {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
 -- Cycle 2 rules
 
 /-- Cycle 2 bumps i when s = 0 and j ≠ −1. -/
-theorem claudeDir_cycle2_s0_nj {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeDir_cycle2_s0_nj {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (hs : fiber v = 0) (hj : v.2.1 ≠ -1) :
     claudeDir v 2 = 0 := by
   simp [claudeDir, hs, hj]
 
 /-- Cycle 2 bumps k when s = 0 and j = −1. -/
-theorem claudeDir_cycle2_s0_j {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeDir_cycle2_s0_j {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (hs : fiber v = 0) (hj : v.2.1 = -1) :
     claudeDir v 2 = 2 := by
   simp [claudeDir, hs, hj]
 
 /-- Cycle 2 bumps k when 0 < s < m−1 and i ≠ −1. -/
-theorem claudeDir_cycle2_mid_ni {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeDir_cycle2_mid_ni {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (hs0 : fiber v ≠ 0) (hs1 : fiber v ≠ -1) (hi : v.1 ≠ -1) :
     claudeDir v 2 = 2 := by
   simp [claudeDir, hs0, hs1, hi]
 
 /-- Cycle 2 bumps j when 0 < s < m−1 and i = −1. -/
-theorem claudeDir_cycle2_mid_i {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeDir_cycle2_mid_i {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (hs0 : fiber v ≠ 0) (hs1 : fiber v ≠ -1) (hi : v.1 = -1) :
     claudeDir v 2 = 1 := by
   simp [claudeDir, hs0, hs1, hi]
@@ -346,22 +346,22 @@ theorem claudeStep_fst_of_dir_ne_zero {m : ℕ} [NeZero m] (c : Fin 3) (v : Vert
     (h : claudeDir v c ≠ 0) : (claudeStep c v).1 = v.1 := by
   simp only [claudeStep]
   have : claudeDir v c = 1 ∨ claudeDir v c = 2 := by omega
-  rcases this with h1 | h1 <;> simp [claudeStep, h1, bumpAt]
+  rcases this with h1 | h1 <;> simp [h1, bumpAt]
 
 theorem claudeStep_snd_fst_of_dir_ne_one {m : ℕ} [NeZero m] (c : Fin 3) (v : Vertex m)
     (h : claudeDir v c ≠ 1) : (claudeStep c v).2.1 = v.2.1 := by
   simp only [claudeStep]
   have : claudeDir v c = 0 ∨ claudeDir v c = 2 := by omega
-  rcases this with h1 | h1 <;> simp [claudeStep, h1, bumpAt]
+  rcases this with h1 | h1 <;> simp [h1, bumpAt]
 
 theorem claudeStep_snd_snd_of_dir_ne_two {m : ℕ} [NeZero m] (c : Fin 3) (v : Vertex m)
     (h : claudeDir v c ≠ 2) : (claudeStep c v).2.2 = v.2.2 := by
   simp only [claudeStep]
   have : claudeDir v c = 0 ∨ claudeDir v c = 1 := by omega
-  rcases this with h1 | h1 <;> simp [claudeStep, h1, bumpAt]
+  rcases this with h1 | h1 <;> simp [h1, bumpAt]
 
 /-- For cycle 0, i only changes when s = 0 and j = -1. -/
-theorem claudeStep_fst_cycle0 {m : ℕ} [NeZero m] (hm : 1 < m) (v : Vertex m)
+theorem claudeStep_fst_cycle0 {m : ℕ} [NeZero m] (_hm : 1 < m) (v : Vertex m)
     (h : ¬(fiber v = 0 ∧ v.2.1 = -1)) : (claudeStep 0 v).1 = v.1 := by
   apply claudeStep_fst_of_dir_ne_zero
   push_neg at h
@@ -383,7 +383,7 @@ Proof sketch: On a finite type, injective ↔ bijective. For injectivity, if
 - If same direction: `bumpAt b` is injective, so `u = v`.
 - If different directions: the fiber equality `fiber u = fiber v` forces the same branch
   conditions, contradicting the direction difference. -/
-theorem claudeStep_bijective {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m) (c : Fin 3) :
+theorem claudeStep_bijective {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m) (c : Fin 3) :
     Function.Bijective (claudeStep c : Vertex m → Vertex m) := by
   rw [← Finite.injective_iff_bijective]
   intro u v heq
@@ -407,10 +407,10 @@ theorem claudeStep_bijective {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m) (c 
       show fiber u = fiber v from hf] at hfst hsnd)
     all_goals (fin_cases c <;> simp_all [bumpAt])
   · by_cases hs1 : fiber v = -1
-    · simp only [hs0, hs1, ite_false, ite_true]
+    · simp only [hs1, ite_true]
       by_cases hui : u.1 = 0 <;> by_cases hvi : v.1 = 0 <;>
         simp only [hui, hvi, ite_true, ite_false]
-      all_goals (simp only [hui, hvi, ite_true, ite_false, claudeDir, hs0, hs1, hn1,
+      all_goals (simp only [hui, hvi, ite_true, ite_false, claudeDir, hs1, hn1,
         show fiber u = fiber v from hf] at hfst hsnd)
       all_goals (fin_cases c <;> simp_all [bumpAt])
     · simp only [hs0, hs1, ite_false]
@@ -538,7 +538,7 @@ private theorem claudeStep0_iter_bumpK {m : ℕ} [NeZero m] (hm' : 1 < m)
 
 /-- Return map for cycle 0, generic case: j ≠ −1, 0 < i < m−1.
 After m steps, (i, j, −i−j) ↦ (i, j−1, −i−(j−1)). -/
-private theorem returnMap0_generic {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
+private theorem returnMap0_generic {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m)
     (i j : ZMod m) (hi0 : i ≠ 0) (hi1 : i ≠ -1) (hj : j ≠ -1) :
     (claudeStep 0)^[m] (i, j, -i - j) = (i, j - 1, -(i + (j - 1))) := by
   -- Decompose m = 1 + (m-2) + 1
@@ -556,12 +556,12 @@ private theorem returnMap0_generic {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < 
     simp only [fiber, zmod_natCast_m_sub_two (by omega : 2 ≤ m)]; ring
   have hdir3 : claudeDir (i, j + ((m - 2 : ℕ) : ZMod m), -i - j + 1) 0 = 1 :=
     claudeDir_cycle0_s1_i hm' _ hfib_last hi0
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Return map for cycle 0, i = 0 case: j ≠ −1.
 After m steps, (0, j, −j) ↦ (0, j−2, −(j−2)). -/
-private theorem returnMap0_i0 {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
+private theorem returnMap0_i0 {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m)
     (j : ZMod m) (hj : j ≠ -1) :
     (claudeStep 0)^[m] ((0 : ZMod m), j, -j) = ((0 : ZMod m), j - 2, -(j - 2)) := by
   rw [iterate_three_phases _ m (by omega)]
@@ -580,12 +580,12 @@ private theorem returnMap0_i0 {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
     simp only [fiber, zmod_natCast_m_sub_two (by omega : 2 ≤ m)]; ring
   have hdir3 : claudeDir ((0 : ZMod m), j + ((m - 2 : ℕ) : ZMod m), -j + 1) 0 = 2 :=
     claudeDir_cycle0_s1_ni hm' _ hfib_last rfl
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Return map for cycle 0, i = m−1 case: j ≠ −1.
 After m steps, (−1, j, 1−j) ↦ (−1, j+1, −j). -/
-private theorem returnMap0_im1 {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
+private theorem returnMap0_im1 {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m)
     (j : ZMod m) (hj : j ≠ -1) :
     (claudeStep 0)^[m] ((-1 : ZMod m), j, 1 - j) = ((-1 : ZMod m), j + 1, -j) := by
   rw [iterate_three_phases _ m (by omega)]
@@ -604,12 +604,12 @@ private theorem returnMap0_im1 {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
     intro h; exact absurd (neg_eq_zero.mp h) (zmod_one_ne_zero hm')
   have hdir3 : claudeDir ((-1 : ZMod m), j, 1 - j + 1 + ((m - 2 : ℕ) : ZMod m)) 0 = 1 :=
     claudeDir_cycle0_s1_i hm' _ hfib_last hi0
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Return map for cycle 0, transition case: j = −1, i+1 ≠ −1, i+1 ≠ 0.
 After m steps, (i, −1, 1−i) ↦ (i+1, −2, 1−i). -/
-private theorem returnMap0_transition {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
+private theorem returnMap0_transition {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m)
     (i : ZMod m) (hi1 : i + 1 ≠ -1) (hi1_ne0 : i + 1 ≠ 0) :
     (claudeStep 0)^[m] (i, -1, 1 - i) = (i + 1, -2, 1 - i) := by
   rw [iterate_three_phases _ m (by omega)]
@@ -627,19 +627,19 @@ private theorem returnMap0_transition {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1
     simp only [fiber, zmod_natCast_m_sub_two (by omega : 2 ≤ m)]; ring
   have hdir3 : claudeDir (i + 1, -1 + ((m - 2 : ℕ) : ZMod m), 1 - i) 0 = 1 :=
     claudeDir_cycle0_s1_i hm' _ hfib_last hi1_ne0
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Return map for cycle 0, transition to last block: j = −1, i = m−2.
 After m steps, (−2, −1, 3−m) ↦ (−1, 0, 1). -/
-private theorem returnMap0_transition_to_last {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m) :
+private theorem returnMap0_transition_to_last {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m) :
     (claudeStep 0)^[m] ((-2 : ZMod m), -1, 3 - (m : ZMod m)) =
       ((-1 : ZMod m), 0, 1) := by
   rw [iterate_three_phases _ m (by omega)]
   -- Phase 1: bump i (j = -1). Note: (m : ZMod m) = 0
   have hm0 : (m : ZMod m) = 0 := ZMod.natCast_self m
   have hfib0 : fiber ((-2 : ZMod m), -1, 3 - (m : ZMod m)) = 0 := by
-    simp [fiber, hm0]; ring
+    simp [fiber]; ring
   have hj : ((-2 : ZMod m), (-1 : ZMod m), 3 - (m : ZMod m)).2.1 = -1 := rfl
   have hdir1 : claudeDir ((-2 : ZMod m), -1, 3 - (m : ZMod m)) 0 = 0 :=
     claudeDir_cycle0_s0_j hm' _ hfib0 hj
@@ -647,7 +647,7 @@ private theorem returnMap0_transition_to_last {m : ℕ} [NeZero m] (hm : Odd m) 
   -- After phase 1: (-1, -1, 3 - (m : ZMod m)) = (-1, -1, 3)
   -- Phase 2: m-2 steps, bump k (i = -1)
   have hfib1 : fiber ((-1 : ZMod m), -1, 3 - (m : ZMod m)) = ((1 : ℕ) : ZMod m) := by
-    simp [fiber, hm0]; ring
+    simp [fiber]; ring
   rw [show (-2 : ZMod m) + 1 = -1 from by ring]
   rw [claudeStep0_iter_bumpK hm' (-1) (3 - (m : ZMod m)) (m - 2) 1 (by omega) (by omega) hfib1]
   -- Phase 3: bump j (i = -1 ≠ 0 at fiber m-1)
@@ -657,13 +657,13 @@ private theorem returnMap0_transition_to_last {m : ℕ} [NeZero m] (hm : Odd m) 
     intro h; exact absurd (neg_eq_zero.mp h) (zmod_one_ne_zero hm')
   have hdir3 : claudeDir ((-1 : ZMod m), -1, 3 - (m : ZMod m) + ((m - 2 : ℕ) : ZMod m)) 0 = 1 :=
     claudeDir_cycle0_s1_i hm' _ hfib_last hi0
-  simp only [claudeStep, hdir3, bumpAt]
+  simp only [hdir3]
   refine Prod.ext rfl (Prod.ext ?_ ?_) <;>
     simp only [zmod_natCast_m_sub_two (by omega : 2 ≤ m), hm0] <;> ring
 
 /-- Return map for cycle 0, wrap case: j = −1, i = m−1.
 After m steps, (−1, −1, 2) ↦ (0, −3, 3). -/
-private theorem returnMap0_wrap {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m) :
+private theorem returnMap0_wrap {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m) :
     (claudeStep 0)^[m] ((-1 : ZMod m), -1, 2) = ((0 : ZMod m), -3, 3) := by
   rw [iterate_three_phases _ m (by omega)]
   -- Phase 1: bump i (j = -1)
@@ -684,8 +684,8 @@ private theorem returnMap0_wrap {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m) 
     simp only [fiber, zmod_natCast_m_sub_two (by omega : 2 ≤ m)]; ring
   have hdir3 : claudeDir ((0 : ZMod m), -1 + ((m - 2 : ℕ) : ZMod m), 2) 0 = 2 :=
     claudeDir_cycle0_s1_ni hm' _ hfib_last rfl
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext rfl (Prod.ext ?_ ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Iterating the return map within a generic block: j decreases by 1 each step. -/
 private theorem returnMap0_generic_iter {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
@@ -796,7 +796,7 @@ private theorem claudeStep1_iter_bumpI {m : ℕ} [NeZero m] (hm' : 1 < m)
 
 /-- Return map for cycle 1, i ≠ 2 case.
 After m steps, (i, j, −i−j) ↦ (i−2, j+1, 1−i−j). -/
-private theorem returnMap1_ne2 {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
+private theorem returnMap1_ne2 {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m)
     (i j : ZMod m) (hi : i ≠ 2) :
     (claudeStep 1)^[m] (i, j, -i - j) = (i - 2, j + 1, -i - j + 1) := by
   rw [iterate_three_phases _ m (by omega)]
@@ -819,12 +819,12 @@ private theorem returnMap1_ne2 {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
       _ = 2 := by ring
   have hdir3 : claudeDir (i + ((m - 2 : ℕ) : ZMod m), j + 1, -i - j) 1 = 2 :=
     claudeDir_cycle1_s1_i hm' _ hfib_last hi2
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext ?_ (Prod.ext rfl ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext ?_ (Prod.ext rfl ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Return map for cycle 1, i = 2 case.
 After m steps, (2, j, −2−j) ↦ (0, j+2, −2−j). -/
-private theorem returnMap1_eq2 {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
+private theorem returnMap1_eq2 {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m)
     (j : ZMod m) :
     (claudeStep 1)^[m] ((2 : ZMod m), j, -2 - j) = ((0 : ZMod m), j + 2, -2 - j) := by
   rw [iterate_three_phases _ m (by omega)]
@@ -843,8 +843,8 @@ private theorem returnMap1_eq2 {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
     rw [zmod_natCast_m_sub_two (by omega : 2 ≤ m)]; ring
   have hdir3 : claudeDir ((2 : ZMod m) + ((m - 2 : ℕ) : ZMod m), j + 1, -2 - j) 1 = 1 :=
     claudeDir_cycle1_s1_ni hm' _ hfib_last hi0
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext ?_ (Prod.ext ?_ rfl) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext ?_ (Prod.ext ?_ rfl) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Iterating the cycle 1 return map within a round: R₁^[k](0, n, −n) = (−2k, n+k, k−n). -/
 private theorem returnMap1_ne2_iter {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
@@ -965,7 +965,7 @@ private theorem claudeStep2_iter_bumpJ {m : ℕ} [NeZero m] (hm' : 1 < m)
 
 /-- Return map for cycle 2, generic case: j ≠ -1, i ≠ -2.
 After m steps, (i, j, −i−j) ↦ (i+2, j, −(i+2)−j). -/
-private theorem returnMap2_generic {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
+private theorem returnMap2_generic {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m)
     (i j : ZMod m) (hj : j ≠ -1) (hi : i ≠ -2) :
     (claudeStep 2)^[m] (i, j, -i - j) = (i + 2, j, -(i + 2) - j) := by
   rw [iterate_three_phases _ m (by omega)]
@@ -986,12 +986,12 @@ private theorem returnMap2_generic {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < 
     simp only [fiber, zmod_natCast_m_sub_two (by omega : 2 ≤ m)]; ring
   have hdir3 : claudeDir (i + 1, j, -i - j + ((m - 2 : ℕ) : ZMod m)) 2 = 0 :=
     claudeDir_cycle2_s1 hm' _ hfib_last
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext ?_ (Prod.ext rfl ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext ?_ (Prod.ext rfl ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Return map for cycle 2, wrap case: j ≠ -1, i = -2.
 After m steps, (−2, j, 2−j) ↦ (0, j−2, −(j−2)). -/
-private theorem returnMap2_wrap {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
+private theorem returnMap2_wrap {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m)
     (j : ZMod m) (hj : j ≠ -1) :
     (claudeStep 2)^[m] ((-2 : ZMod m), j, 2 - j) = ((0 : ZMod m), j - 2, -(j - 2)) := by
   rw [iterate_three_phases _ m (by omega)]
@@ -1008,12 +1008,12 @@ private theorem returnMap2_wrap {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
     simp only [fiber, zmod_natCast_m_sub_two (by omega : 2 ≤ m)]; ring
   have hdir3 : claudeDir ((-1 : ZMod m), j + ((m - 2 : ℕ) : ZMod m), 2 - j) 2 = 0 :=
     claudeDir_cycle2_s1 hm' _ hfib_last
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext ?_ (Prod.ext ?_ ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext ?_ (Prod.ext ?_ ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Return map for cycle 2, transition case: j = -1, i ≠ -1.
 After m steps, (i, −1, 1−i) ↦ (i+1, −1, −i). -/
-private theorem returnMap2_transition {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
+private theorem returnMap2_transition {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m)
     (i : ZMod m) (hi : i ≠ -1) :
     (claudeStep 2)^[m] (i, -1, 1 - i) = (i + 1, -1, -i) := by
   rw [iterate_three_phases _ m (by omega)]
@@ -1030,12 +1030,12 @@ private theorem returnMap2_transition {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1
     simp only [fiber, zmod_natCast_m_sub_two (by omega : 2 ≤ m)]; ring
   have hdir3 : claudeDir (i, -1, 2 - i + ((m - 2 : ℕ) : ZMod m)) 2 = 0 :=
     claudeDir_cycle2_s1 hm' _ hfib_last
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext ?_ (Prod.ext rfl ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext ?_ (Prod.ext rfl ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- Return map for cycle 2, transition wrap: j = -1, i = -1.
 After m steps, (−1, −1, 2) ↦ (0, −3, 3). -/
-private theorem returnMap2_transition_wrap {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m) :
+private theorem returnMap2_transition_wrap {m : ℕ} [NeZero m] (_hm : Odd m) (hm' : 1 < m) :
     (claudeStep 2)^[m] ((-1 : ZMod m), -1, 2) = ((0 : ZMod m), -3, 3) := by
   rw [iterate_three_phases _ m (by omega)]
   -- Phase 1: j = -1, bump k → (-1, -1, 3)
@@ -1051,8 +1051,8 @@ private theorem returnMap2_transition_wrap {m : ℕ} [NeZero m] (hm : Odd m) (hm
     simp only [fiber, zmod_natCast_m_sub_two (by omega : 2 ≤ m)]; ring
   have hdir3 : claudeDir ((-1 : ZMod m), -1 + ((m - 2 : ℕ) : ZMod m), 3) 2 = 0 :=
     claudeDir_cycle2_s1 hm' _ hfib_last
-  simp only [claudeStep, hdir3, bumpAt]
-  refine Prod.ext ?_ (Prod.ext ?_ ?_) <;> rw [zmod_natCast_m_sub_two (by omega)] <;> ring
+  simp only [hdir3]
+  refine Prod.ext ?_ (Prod.ext ?_ ?_) <;> (rw [zmod_natCast_m_sub_two (by omega)]; try ring)
 
 /-- 2 * (t : ℕ) ≠ -2 in ZMod m when t < m - 1. -/
 private theorem two_mul_ne_neg_two {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m)
@@ -1133,8 +1133,7 @@ private theorem returnMap2_jblock {m : ℕ} [NeZero m] (hm : Odd m) (hm' : 1 < m
       ((0 : ZMod m), j - 2, -(j - 2)) := by
   by_cases hj : j = -1
   · subst hj
-    simp only [neg_neg, show (-1 : ZMod m) - 2 = -3 from by ring,
-               show -((-1 : ZMod m) - 2) = 3 from by ring]
+    simp only [neg_neg, show (-1 : ZMod m) - 2 = -3 from by ring]
     exact returnMap2_jblock_eq hm hm'
   · exact returnMap2_jblock_ne hm hm' j hj
 
